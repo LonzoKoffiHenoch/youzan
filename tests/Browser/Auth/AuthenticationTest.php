@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Auth;
 
 use App\Models\User;
@@ -8,13 +10,13 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class AuthenticationTest extends DuskTestCase
+final class AuthenticationTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    public function test_login_screen_can_be_rendered()
+    public function test_login_screen_can_be_rendered(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $browser->logout()
                 ->visit('/login')
                 ->waitForInput('email')
@@ -23,9 +25,9 @@ class AuthenticationTest extends DuskTestCase
         });
     }
 
-    public function test_users_can_authenticate_using_the_login_screen()
+    public function test_users_can_authenticate_using_the_login_screen(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $user = User::factory()->create();
 
             $browser->logout()
@@ -39,9 +41,9 @@ class AuthenticationTest extends DuskTestCase
         });
     }
 
-    public function test_users_can_not_authenticate_with_invalid_password()
+    public function test_users_can_not_authenticate_with_invalid_password(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $user = User::factory()->create();
 
             $browser->logout()

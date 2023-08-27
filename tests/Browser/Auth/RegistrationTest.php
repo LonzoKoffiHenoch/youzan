@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Auth;
 
 use App\Providers\RouteServiceProvider;
@@ -7,13 +9,13 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class RegistrationTest extends DuskTestCase
+final class RegistrationTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    public function test_registration_screen_can_be_rendered()
+    public function test_registration_screen_can_be_rendered(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $browser->logout()
                 ->visit('/register')
                 ->waitForInput('name')
@@ -24,9 +26,9 @@ class RegistrationTest extends DuskTestCase
         });
     }
 
-    public function test_new_users_can_register()
+    public function test_new_users_can_register(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $browser->logout()
                 ->visit('/register')
                 ->waitForInput('name')

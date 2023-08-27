@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Auth;
 
 use App\Models\User;
@@ -8,19 +10,19 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class PasswordUpdateTest extends DuskTestCase
+final class PasswordUpdateTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    public function test_password_can_be_updated()
+    public function test_password_can_be_updated(): void
     {
         $user = User::factory()->create();
 
-        $this->browse(function (Browser $browser) use ($user) {
+        $this->browse(function (Browser $browser) use ($user): void {
             $browser->loginAs($user)
                 ->visit('/profile')
                 ->waitForText('Update Password')
-                ->within('@update-password', function (Browser $browser) {
+                ->within('@update-password', function (Browser $browser): void {
                     $browser->type('current_password', 'password')
                         ->type('password', 'new-password')
                         ->type('password_confirmation', 'new-password')
@@ -32,15 +34,15 @@ class PasswordUpdateTest extends DuskTestCase
         $this->assertTrue(Hash::check('new-password', $user->refresh()->password));
     }
 
-    public function test_correct_password_must_be_provided_to_update_password()
+    public function test_correct_password_must_be_provided_to_update_password(): void
     {
         $user = User::factory()->create();
 
-        $this->browse(function (Browser $browser) use ($user) {
+        $this->browse(function (Browser $browser) use ($user): void {
             $browser->loginAs($user)
                 ->visit('/profile')
                 ->waitForText('Update Password')
-                ->within('@update-password', function (Browser $browser) {
+                ->within('@update-password', function (Browser $browser): void {
                     $browser->type('current_password', 'wrong-password')
                         ->type('password', 'new-password')
                         ->type('password_confirmation', 'new-password')

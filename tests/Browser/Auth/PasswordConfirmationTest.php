@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Auth;
 
 use App\Models\User;
@@ -8,13 +10,13 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class PasswordConfirmationTest extends DuskTestCase
+final class PasswordConfirmationTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    public function test_confirm_password_screen_can_be_rendered()
+    public function test_confirm_password_screen_can_be_rendered(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $user = User::factory()->create();
 
             $browser->loginAs($user)
@@ -24,9 +26,9 @@ class PasswordConfirmationTest extends DuskTestCase
         });
     }
 
-    public function test_password_can_be_confirmed()
+    public function test_password_can_be_confirmed(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $user = User::factory()->create();
 
             $browser->loginAs($user)
@@ -39,9 +41,9 @@ class PasswordConfirmationTest extends DuskTestCase
         });
     }
 
-    public function test_password_is_not_confirmed_with_invalid_password()
+    public function test_password_is_not_confirmed_with_invalid_password(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $user = User::factory()->create();
 
             $browser->loginAs($user)

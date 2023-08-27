@@ -6,6 +6,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -46,4 +47,24 @@ final class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Define a one-to-many relationship with the Customer model.
+     *
+     * @return HasMany<Customer>
+     */
+    public function customers(): HasMany
+    {
+        return $this->hasMany(Customer::class);
+    }
+
+    /**
+     * Define a one-to-many relationship with the Customer model.
+     *
+     * @return HasMany<Transaction>
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

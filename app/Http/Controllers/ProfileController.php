@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
@@ -7,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-class ProfileController extends Controller
+final class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
@@ -22,8 +24,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the user's profile information.
-     *
+     * @param ProfileUpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ProfileUpdateRequest $request)

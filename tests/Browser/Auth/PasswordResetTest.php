@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Auth;
 
 use App\Models\User;
@@ -10,23 +12,23 @@ use Laravel\Dusk\Browser;
 use ProtoneMedia\LaravelDuskFakes\Notifications\PersistentNotifications;
 use Tests\DuskTestCase;
 
-class PasswordResetTest extends DuskTestCase
+final class PasswordResetTest extends DuskTestCase
 {
     use DatabaseMigrations;
     use PersistentNotifications;
 
-    public function test_reset_password_link_screen_can_be_rendered()
+    public function test_reset_password_link_screen_can_be_rendered(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $browser->logout()
                 ->visit('/forgot-password')
                 ->assertInputPresent('email');
         });
     }
 
-    public function test_reset_password_link_can_be_requested()
+    public function test_reset_password_link_can_be_requested(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $user = User::factory()->create();
 
             $browser->logout()
@@ -39,9 +41,9 @@ class PasswordResetTest extends DuskTestCase
         });
     }
 
-    public function test_reset_password_screen_can_be_rendered()
+    public function test_reset_password_screen_can_be_rendered(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $user = User::factory()->create();
 
             $browser->logout()
@@ -51,8 +53,8 @@ class PasswordResetTest extends DuskTestCase
                 ->waitForText('We have emailed your password reset link');
 
             Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user) {
-                $this->browse(function (Browser $browser) use ($notification, $user) {
-                    $browser->visit('/reset-password/'.$notification->token.'?email='.$user->email)
+                $this->browse(function (Browser $browser) use ($notification, $user): void {
+                    $browser->visit('/reset-password/' . $notification->token . '?email=' . $user->email)
                         ->assertInputValue('email', $user->email);
                 });
 
@@ -61,9 +63,9 @@ class PasswordResetTest extends DuskTestCase
         });
     }
 
-    public function test_password_can_be_reset_with_valid_token()
+    public function test_password_can_be_reset_with_valid_token(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $user = User::factory()->create();
 
             $browser->logout()
@@ -74,8 +76,8 @@ class PasswordResetTest extends DuskTestCase
                 ->waitForText('We have emailed your password reset link');
 
             Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user) {
-                $this->browse(function (Browser $browser) use ($notification, $user) {
-                    $browser->visit('/reset-password/'.$notification->token.'?email='.$user->email)
+                $this->browse(function (Browser $browser) use ($notification, $user): void {
+                    $browser->visit('/reset-password/' . $notification->token . '?email=' . $user->email)
                         ->assertInputValue('email', $user->email)
                         ->type('password', 'password')
                         ->type('password_confirmation', 'password')
