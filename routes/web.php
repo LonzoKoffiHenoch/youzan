@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,10 +30,12 @@ Route::middleware('splade')->group(function (): void {
     // Registers routes to support async File Uploads with Filepond...
     Route::spladeUploads();
 
-    Route::get('/', fn () => view('welcome'));
+    Route::get('/', fn() => view('welcome'));
 
     Route::middleware('auth')->group(function (): void {
-        Route::get('/dashboard', fn () => view('dashboard'))->middleware(['verified'])->name('dashboard');
+//        Route::get('/dashboard', fn () => view('dashboard'))->middleware(['verified'])->name('dashboard');
+        Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+        Route::resource('/administrative', CustomerController::class);
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

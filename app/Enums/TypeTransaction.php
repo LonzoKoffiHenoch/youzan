@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Enums;
 
 enum TypeTransaction: string
 {
-    Case Enter="entrée";
-    Case OUT="sortie";
+    case Enter="entrée";
+    case OUT="sortie";
 
 
 }

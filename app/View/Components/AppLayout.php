@@ -6,7 +6,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class AppLayout extends Component
+final class AppLayout extends Component
 {
     public function render(): \Illuminate\View\View
     {

@@ -1,10 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-class TransactionController extends Controller
+final class TransactionController extends Controller
 {
-    //
 }
