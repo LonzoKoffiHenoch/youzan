@@ -6,14 +6,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Customer\CreateCustomerRequest;
 use App\Models\Customer;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use ProtoneMedia\Splade\SpladeTable;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Toast;
+
 
 final class CustomerController extends Controller
 {
-    public function index()
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function index(): View
     {
-        $customers = Customer::query()->paginate(5);
+        $perPage = request()->get("perPage");
+        $customers = Customer::query()->paginate($perPage ?? 5);
 
         return view("customer.index", [
             "customers" => SpladeTable::for($customers)
@@ -22,10 +32,15 @@ final class CustomerController extends Controller
                 ->column("birthday", "Date d'anniversaire")
                 ->column("contact")
 
+
         ]);
     }
 
-    public function store(CreateCustomerRequest $request)
+    /**
+     * @param CreateCustomerRequest $request
+     * @return RedirectResponse
+     */
+    public function store(CreateCustomerRequest $request): RedirectResponse
     {
 
         Customer::query()->create(
@@ -39,10 +54,13 @@ final class CustomerController extends Controller
         return redirect()->route("administrative.index");
     }
 
-    public function create()
+    /**
+     * @return View
+     */
+    public function create(): View
     {
+        
         $customers = Customer::query()->paginate();
-
         return view("customer.create");
     }
 }
