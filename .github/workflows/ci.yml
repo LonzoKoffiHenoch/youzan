@@ -43,9 +43,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            ls
-            cd  public_html/youzan
-            git pull origin main
+            cd  public_html
+            git clone https://github.com/LonzoKoffiHenoch/youzan.git
+            cd youzan
             php -r "file_exists('.env') || copy('.env.production', '.env');"
             composer install --no-dev --optimize-autoloader
             php artisan migrate --force
