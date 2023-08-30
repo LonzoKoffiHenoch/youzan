@@ -44,12 +44,15 @@ jobs:
           port: 22
           script: |
             php -v
+            npm -v
 #            if [ -d "public_html/youzan" ] && [ -d "public_html/youzan/.git" ]; then
 #              echo "'youzan' directory exists and contains a Git repository. Updating..."
 #              cd public_html/youzan
 #              git pull origin main
 #              php -r "file_exists('.env') || copy('.env.production', '.env');"
 #              composer install --no-dev --optimize-autoloader
+#              npm i
+#              npm run build
 #              php artisan migrate --force
 #              php artisan optimize
 #            else
@@ -59,6 +62,8 @@ jobs:
 #              cd youzan
 #              php -r "file_exists('.env') || copy('.env.production', '.env');"
 #              composer install --no-dev --optimize-autoloader
+#              npm i
+#              npm run build
 #              php artisan migrate --force
 #              php artisan optimize
 #            fi
