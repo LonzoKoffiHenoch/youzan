@@ -44,7 +44,7 @@ jobs:
           port: 22
           script: |
             cd /public_html/youzan.lagnole.ci
-            git pull https://github.com/LonzoKoffiHenoch/youzan.git main
+            git clone https://github.com/LonzoKoffiHenoch/youzan.git
             php -r "file_exists('.env') || copy('.env.production', '.env');"
             composer install --no-dev --optimize-autoloader
             php artisan migrate --force
