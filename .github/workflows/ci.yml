@@ -43,12 +43,29 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            cd  public_html
-            git clone https://github.com/LonzoKoffiHenoch/youzan.git
-            cd youzan
-            php -r "file_exists('.env') || copy('.env.production', '.env');"
-            composer install --no-dev --optimize-autoloader
-            php artisan migrate --force
-            php artisan optimize
+            if [ -d "public_html/youzan" ] && [ -d "public_html/youzan/.git" ]; then
+              echo "'youzan' directory exists and contains a Git repository. Updating..."
+              cd public_html/youzan
+              git pull origin main
+              php artisan migrate --force
+              php artisan optimize
+            else
+              echo "'youzan' directory does not exist or does not contain a Git repository. Cloning..."
+              cd public_html
+              git clone https://github.com/LonzoKoffiHenoch/youzan.git
+              cd youzan
+              php -r "file_exists('.env') || copy('.env.production', '.env');"
+              composer install --no-dev --optimize-autoloader
+              php artisan migrate --force
+              php artisan optimize
+            fi
+#            cd  public_html
+#            git clone https://github.com/LonzoKoffiHenoch/youzan.git
+#            cd youzan
+#            php -r "file_exists('.env') || copy('.env.production', '.env');"
+#            composer install --no-dev --optimize-autoloader
+#            php artisan migrate --force
+#            php artisan optimize
+
 
 
