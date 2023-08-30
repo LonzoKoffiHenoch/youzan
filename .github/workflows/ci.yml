@@ -44,13 +44,11 @@ jobs:
           port: 22
           script: |
             ls
-            cd  public_html
-            ls
-#            cd  public_html/youzan.lagnole.ci
-#            git clone https://github.com/LonzoKoffiHenoch/youzan.git
-#            php -r "file_exists('.env') || copy('.env.production', '.env');"
-#            composer install --no-dev --optimize-autoloader
-#            php artisan migrate --force
-#            php artisan optimize
+            cd  public_html/youzan
+            git clone https://github.com/LonzoKoffiHenoch/youzan.git
+            php -r "file_exists('.env') || copy('.env.production', '.env');"
+            composer install --no-dev --optimize-autoloader
+            php artisan migrate --force
+            php artisan optimize
 
 
