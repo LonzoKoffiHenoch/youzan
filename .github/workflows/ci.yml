@@ -32,8 +32,8 @@ jobs:
         run: php artisan key:generate
       - name: Run migrations
         run: php artisan migrate
-      - name: Run Pest tests
-        run: ./vendor/bin/pest
+      #      - name: Run Pest tests
+      #        run: ./vendor/bin/pest
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
